@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "es2015",
+		"moduleResolution": "node",
+		"jsx": "react",
+		"allowJs": true,
+		"checkJs": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"downlevelIteration": true,
+		"importHelpers": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": false,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": false,
+		"sourceMap": true,
+		"types": [
+			"node"
+		],
+		"lib": [
+			"es5",
+			"es2015.promise",
+			"dom"
+		],
+		"baseUrl": "."
+	},
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}
