@@ -10,7 +10,7 @@ export interface IProps {
 const App: React.SFC<IProps> = (): React.ReactElement<IProps> => (
 	<div className={styles.wrapper}>
 		<Helmet>
-			<title>Tutu design language prototype</title>
+			<title>Frontend Boilerplate</title>
 		</Helmet>
 
 		<Route exact path="/" component={<h1>Index page</h1>} />
