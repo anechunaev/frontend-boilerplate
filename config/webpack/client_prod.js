@@ -12,7 +12,6 @@ import ManifestPlugin from 'webpack-manifest-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BUNDLE_ANALYZER } from '../../config/project';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { css } from './common';
 import paths from '../../config/paths';
 
 const autoprefixer = require('autoprefixer');

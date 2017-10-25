@@ -3,7 +3,6 @@
 
 import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
-import { css } from './common';
 import paths from '../../config/paths';
 
 const HOST = 'localhost';
@@ -56,26 +55,41 @@ export default new WebpackConfig().extend({
 
 	module: {
 		loaders: [
-			...(function* loadCss() {
-				for (const loader of css.loaders) {
-					for (const mod of css.getModuleRegExp(loader.ext)) {
-						yield {
-							test: new RegExp(mod[0]),
-							loader: [
-								'style-loader',
-								{
-									loader: 'css-loader',
-									query: Object.assign({}, css.loaderDefaults, {
-										sourceMap: true,
-									}, mod[1]),
-								},
-								'postcss-loader',
-								...loader.use,
-							],
-						};
-					}
-				}
-			}()),
+			{
+				test: /\.css$/,
+				loaders: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						query: {
+							minimize: false,
+							localIdentName: '[local]-[hash:base64]',
+							importLoaders: 1,
+							sourceMap: true,
+							modules: true,
+						},
+					},
+					'postcss-loader',
+				],
+			},
+			{
+				test: /\.less$/,
+				loaders: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						query: {
+							minimize: false,
+							localIdentName: '[local]-[hash:base64]',
+							importLoaders: 1,
+							sourceMap: true,
+							modules: true,
+						},
+					},
+					'postcss-loader',
+					'less-loader',
+				],
+			},
 		],
 	},
 

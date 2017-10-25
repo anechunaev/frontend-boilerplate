@@ -6,7 +6,6 @@ import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
 import nodeModules from 'webpack-node-externals';
 import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
-import { css } from './common';
 import paths from '../../config/paths';
 
 function recursiveLoader(root = {}, func) {

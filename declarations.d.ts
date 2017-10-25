@@ -36,7 +36,7 @@ declare module '*.less' {
 		[key: string]: string;
 	}
 	const _: Style;
-	export = _;
+	export default _;
 }
 
 declare module '*.json' {
