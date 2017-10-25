@@ -98,7 +98,7 @@ app.use(compose([
 
 app.use('/', express.static('dist/public'));
 
-app.all('/', pageTemplateHandler);
+app.all('*', pageTemplateHandler);
 
 app.listen(PORT, HOST);
 console.log(`Server started on ${HOST}:${PORT}`);

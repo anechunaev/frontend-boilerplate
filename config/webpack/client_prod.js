@@ -49,7 +49,7 @@ export default new WebpackConfig().extend({
 							options: {
 								minimize: true,
 								modules: true,
-								localIdentName: '[local]-[hash:base64:10]'
+								localIdentName: '[folder]__[local]__[hash:base64:5]'
 							}
 						},
 						{
@@ -76,7 +76,7 @@ export default new WebpackConfig().extend({
 							options: {
 								minimize: true,
 								modules: true,
-								localIdentName: '[local]-[hash:base64:10]'
+								localIdentName: '[folder]__[local]__[hash:base64:5]'
 							}
 						},
 						{

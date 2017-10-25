@@ -14,6 +14,7 @@ const App: React.SFC<IProps> = (): React.ReactElement<IProps> => (
 		</Helmet>
 
 		<Route exact path="/" component={() => <h1>Index page</h1>} />
+		<Route exact path="/test" component={() => <h1>Test page</h1>} />
 	</div>
 );
 
