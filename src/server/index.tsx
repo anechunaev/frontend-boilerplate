@@ -11,17 +11,14 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 
 import * as express from 'express';
-import { compose } from 'compose-middleware';
 import * as morgan from 'morgan';
-type Middleware = (req: express.Request, res: express.Response, next?: () => express.RequestHandler) => void;
-type RequestHandler = express.RequestHandler;
 
-import createNewStore from 'lib/redux';
+import createNewStore from '../../lib/redux';
 
-import Html from 'src/server/views/server';
-import App from 'src/common/App';
+import Html from '../../src/server/views/server';
+import App from '../../src/common/App';
 
-import * as paths from 'config/paths';
+import * as paths from '../../config/paths';
 
 const [manifest, chunkManifest] = ['manifest', 'chunk-manifest'].map(
 	name => JSON.parse(
@@ -39,7 +36,7 @@ const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 const app = express();
 
-const errorHandler: Middleware = async (req, res, next) => {
+const errorHandler = async (req, res, next) => {
 	try {
 		if (!!next) {
 			await next();
@@ -52,7 +49,7 @@ const errorHandler: Middleware = async (req, res, next) => {
 	}
 };
 
-const responseTimeHandler: Middleware = async (req, res, next) => {
+const responseTimeHandler = async (req, res, next) => {
 	const start = ms.now();
 
 	if (!!next) await next();
@@ -62,7 +59,7 @@ const responseTimeHandler: Middleware = async (req, res, next) => {
 	res.set('Response-Time', `${total / 1e3}ms`);
 }
 
-const pageTemplateHandler: RequestHandler = async (req, res) => {
+const pageTemplateHandler = async (req, res) => {
 	const route = {};
 	const store = createNewStore({reducers: [], middleware: []});
 	const components = (
@@ -90,15 +87,14 @@ const pageTemplateHandler: RequestHandler = async (req, res) => {
 	)}`);
 }
 
-app.use(compose([
-	errorHandler,
-	responseTimeHandler,
-	morgan('tiny'),
-]));
+app.use(errorHandler);
+app.use(responseTimeHandler);
+app.use(morgan('tiny'));
 
 app.use('/', express.static('dist/public'));
 
 app.all('*', pageTemplateHandler);
 
-app.listen(PORT, HOST);
-console.log(`Server started on ${HOST}:${PORT}`);
+app.listen(PORT, HOST, () => {
+	console.log(`Server started on ${HOST}:${PORT}`);
+});
