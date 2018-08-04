@@ -12,4 +12,4 @@ COPY . /usr/src/app
 
 CMD [ "npm", "start" ]
 
-EXPOSE 3000
+EXPOSE 8080

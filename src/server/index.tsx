@@ -1,100 +1,31 @@
-import 'isomorphic-fetch';
-
-import * as path from 'path';
-import { readFileSync } from 'fs';
-import * as ms from 'microseconds';
-
-import * as React from 'react';
-import * as ReactDOMServer from 'react-dom/server';
-import { StaticRouter } from 'react-router';
-import { Provider } from 'react-redux';
-import Helmet from 'react-helmet';
-
-import * as express from 'express';
 import * as morgan from 'morgan';
+import * as Express from 'express';
 
-import createNewStore from '../../lib/redux';
+import pageTemplate from './middlewares/pageTemplate';
+import pageNotFound from './middlewares/404';
+import staticUrls from './middlewares/staticUrls';
 
-import Html from '../../src/server/views/server';
-import App from '../../src/common/App';
-
-import * as paths from '../../config/paths';
-
-const [manifest, chunkManifest] = ['manifest', 'chunk-manifest'].map(
-	name => JSON.parse(
-		readFileSync(path.resolve(paths.dist, `${name}.json`), 'utf8'),
-	),
-);
-
-const scripts = [
-	'manifest.js',
-	'vendor.js',
-	'browser.js'
-].map(key => manifest[key]);
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || '0.0.0.0';
-const app = express();
+const app = Express();
 
-const errorHandler = async (req, res, next) => {
-	try {
-		if (!!next) {
-			await next();
-		} else {
-			throw Error('Empty handler');
-		}
-	} catch (e) {
-		console.error('Error: ', e.message);
-		res.send('There was an error. Please try again later.');
-	}
-};
-
-const responseTimeHandler = async (req, res, next) => {
-	const start = ms.now();
-
-	if (!!next) await next();
-	
-	const end = ms.parse(ms.since(start));
-	const total = end.microseconds + (end.milliseconds * 1e3) + (end.seconds * 1e6);
-	res.set('Response-Time', `${total / 1e3}ms`);
+const errorRequestHandler: Express.ErrorRequestHandler = (err, _req, _res, _next) => {
+	console.error(err);
 }
 
-const pageTemplateHandler = async (req, res) => {
-	const route = {};
-	const store = createNewStore({reducers: [], middleware: []});
-	const components = (
-		<StaticRouter location={req.baseUrl} context={route}>
-			<Provider store={store}>
-				<App />
-			</Provider>
-		</StaticRouter>
-	);
+app.use('/dist', Express.static('dist/public'));
+app.use('/', Express.static('static'));
+app.all('*', staticUrls);
+app.all('/', pageTemplate);
+app.all('*', morgan('common'));
+app.all('*', errorRequestHandler);
+app.all('*', pageNotFound);
 
-	const html = ReactDOMServer.renderToString(components);
-
-	res.send(`<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(
-		<Html
-			html={html}
-			head={Helmet.rewind()}
-			window={{
-				webpackManifest: chunkManifest,
-				__STATE__: store.getState(),
-			}}
-			scripts={scripts}
-			css={manifest['browser.css']}
-			vendorCss={manifest['vendor.css']}
-		/>
-	)}`);
-}
-
-app.use(errorHandler);
-app.use(responseTimeHandler);
-app.use(morgan('tiny'));
-
-app.use('/', express.static('dist/public'));
-
-app.all('*', pageTemplateHandler);
-
-app.listen(PORT, HOST, () => {
-	console.log(`Server started on ${HOST}:${PORT}`);
+process.on('unhandledRejection', (reason, promise) => {
+	console.error("Unhandled rejection at:\n", promise, "\n\nReason: ", reason);
 });
+
+
+app.listen(+PORT, HOST, () => {
+	console.log(`Server @ https://${HOST}:${PORT}`);
+})

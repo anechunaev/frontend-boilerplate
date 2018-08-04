@@ -1,35 +1,29 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "es2015",
+		"module": "commonjs",
 		"moduleResolution": "node",
-		"jsx": "react",
-		"allowJs": true,
-		"checkJs": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"downlevelIteration": true,
-		"importHelpers": true,
+		"allowSyntheticDefaultImports": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": false,
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
-		"noUnusedParameters": false,
+		"noUnusedParameters": true,
+		"noImplicitAny": true,
 		"sourceMap": true,
-		"types": [
-			"node"
-		],
+		"jsx": "react",
+		"allowJs": true,
 		"lib": [
-			"es5",
-			"es2015.promise",
+			"es2018",
 			"dom"
 		],
 		"baseUrl": "."
 	},
 	"exclude": [
 		"node_modules",
-		"dist"
+		"dist/**/*.js",
+		"config",
+		"static",
+		"!dist/public/manifest.json"
 	]
 }
