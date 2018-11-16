@@ -23,9 +23,10 @@ app.all('*', pageNotFound);
 
 process.on('unhandledRejection', (reason, promise) => {
 	console.error("Unhandled rejection at:\n", promise, "\n\nReason: ", reason);
+	process.exit(1);
 });
 
 
 app.listen(+PORT, HOST, () => {
 	console.log(`Server @ https://${HOST}:${PORT}`);
-})
+});
