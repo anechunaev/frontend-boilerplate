@@ -17,6 +17,7 @@ app.use('/dist', Express.static('dist/public'));
 app.use('/', Express.static('static'));
 app.all('*', staticUrls);
 app.all('/', pageTemplate);
+app.all('/:page', pageTemplate);
 app.all('*', morgan('common'));
 app.all('*', errorRequestHandler);
 app.all('*', pageNotFound);
@@ -28,5 +29,5 @@ process.on('unhandledRejection', (reason, promise) => {
 
 
 app.listen(+PORT, HOST, () => {
-	console.log(`Server @ https://${HOST}:${PORT}`);
+	console.log(`Server @ http://${HOST}:${PORT}`);
 });
