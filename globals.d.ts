@@ -2,6 +2,8 @@ declare module 'react-jss' {
 	export type ISheetsRegistry = any;
 	export const SheetsRegistry: ISheetsRegistry;
 	export const JssProvider: any;
+	const withStyles: (styles: {[key: string]: any}) => (com: React.ComponentType<any>) => React.ComponentType<any>;
+	export default withStyles;
 }
 
 declare module "*.json" {

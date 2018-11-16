@@ -1,9 +1,9 @@
 # Modern Web Frontend Boilerplate
 
 ## Technologies
-* __Client-side:__ TypeScript, React
-* __Server-side:__ TypeScript, Node.js
-* __Routing:__ Express, React-Router
+- **Client-side:** TypeScript, React
+- **Server-side:** TypeScript, Node.js
+- **Routing:** Express, React-Router
 
 ## Limitations and restrictions
 
@@ -24,7 +24,7 @@
   - [ ] TODO: Web App Manifest
   - [ ] TODO: Client-side cache by Service Workers
   - [ ] TODO: App icons
-- [ ] TODO: SPA with splitted chunks and async loading
+- [x] SPA with splitted chunks and async loading
 - [x] Dynamic styles by JSS
   - [x] SSR with dynamic styles (critical CSS)
   - [ ] TODO: SSR with above-the-fold CSS
@@ -33,6 +33,7 @@
 - [ ] TODO: Web Fragments
   - [ ] TODO: Implement Entity-component-system pattern for client-side or isomorphic applications
   - [ ] TODO: Web Components server-side-rendering
+  - [ ] TODO: Server-side dynamic polyfills loading
 - [ ] TODO: Quality assurance tools
   - [ ] TODO: Integrate framework for unit-testing
   - [ ] TODO: Integrate framework for e2e testing

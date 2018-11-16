@@ -31,6 +31,7 @@ module.exports = {
 							useCache: true,
 							forceIsolatedModules: true,
 							reportFiles: [ "src/**/*.{ts,tsx}" ],
+							silent: true,
 						},
 					},
 				],
@@ -49,5 +50,8 @@ module.exports = {
 			__dirname: JSON.stringify(__dirname),
 		}),
 		new CheckerPlugin(),
+		new webpack.optimize.LimitChunkCountPlugin({
+			maxChunks: 1,
+		}),
 	],
 };

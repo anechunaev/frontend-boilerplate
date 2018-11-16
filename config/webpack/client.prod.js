@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 module.exports = {
 	mode: 'production',
@@ -33,6 +35,7 @@ module.exports = {
 							useCahce: true,
 							forceIsolatedModules: true,
 							reportFiles: [ "src/**/*.{ts,tsx}" ],
+							silent: true,
 						},
 					},
 				],
@@ -51,6 +54,10 @@ module.exports = {
 		}),
 		new CheckerPlugin(),
 		new ManifestPlugin(),
+		new AsyncChunkNamesPlugin(),
+		new ReactLoadablePlugin({
+			filename: './dist/react-loadable.json',
+		}),
 	],
 	optimization: {
 		minimizer: [

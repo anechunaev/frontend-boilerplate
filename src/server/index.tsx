@@ -1,6 +1,6 @@
 import * as morgan from 'morgan';
 import * as Express from 'express';
-
+import loadable from 'react-loadable';
 import pageTemplate from './middlewares/pageTemplate';
 import pageNotFound from './middlewares/404';
 import staticUrls from './middlewares/staticUrls';
@@ -27,7 +27,8 @@ process.on('unhandledRejection', (reason, promise) => {
 	process.exit(1);
 });
 
-
-app.listen(+PORT, HOST, () => {
-	console.log(`Server @ http://${HOST}:${PORT}`);
+loadable.preloadAll().then(() => {
+	app.listen(+PORT, HOST, () => {
+		console.log(`Server @ http://${HOST}:${PORT}`);
+	});
 });
