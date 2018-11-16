@@ -47,12 +47,12 @@ export default (req: Express.Request, res: Express.Response) => {
 			<div data-render="ssr" id="main">${html}</div>
 			${res.locals.script.vendor ? `<script defer src="${res.locals.script.vendor}" data-origin="webpack-vendor"></script>` : ''}
 			${bundles.map((chunk: any) => `<script defer src="${chunk.publicPath}" data-origin="react-loadable"></script>`).join('')}
-			<script defer src="${res.locals.script.client}" data-origin="webpack-bundle"></script>
 			${
 				(res.locals.script.chunks || []).map(
 					(script: string) => `<script defer src="${script}" data-origin="webpack-chunk"></script>`
 				).join('')
 			}
+			<script defer src="${res.locals.script.client}" data-origin="webpack-bundle"></script>
 		</body>
 		</html>
 	`.replace(/(\t|\n)/g, ''));

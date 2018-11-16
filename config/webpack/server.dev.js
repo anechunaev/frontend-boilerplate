@@ -9,7 +9,7 @@ module.exports = {
 	entry: { server: resolve(__dirname, '../../src/server/index.tsx') },
 	output: {
 		filename: '[name].js',
-		chunkFilename: '[name].chunk.dev.js',
+		chunkFilename: '[name].chunk.js',
 		publicPath: '/dist/',
 		path: resolve(__dirname, '../../dist'),
 	},

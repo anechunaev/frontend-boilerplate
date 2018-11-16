@@ -12,8 +12,8 @@ module.exports = {
 	context: resolve(__dirname),
 	entry: { client: resolve(__dirname, '../../src/client/index.tsx') },
 	output: {
-		filename: '[name].prod.js',
-		chunkFilename: '[name].chunk.prod.js',
+		filename: '[name].prod.[contenthash].js',
+		chunkFilename: '[name].chunk.prod.[contenthash].js',
 		publicPath: '/dist/',
 		path: resolve(__dirname, '../../dist/public'),
 	},
