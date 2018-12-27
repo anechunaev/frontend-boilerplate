@@ -1,0 +1,43 @@
+{
+	"lang": "en-US",
+	"name": "Modern Frontend Boilerplate",
+	"short_name": "FE Boilerplate",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#fff",
+	"theme_color": "#333",
+	"description": "Modern Web Frontend Boilerplate",
+	"icons": [
+		{
+			"src": "icons/app/cog.svg",
+			"sizes": "16x16 24x24 32x32 48x48 64x64 72x72 96x96 128x128 144x144 168x168 192x192",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		},
+		{
+			"src": "icons/app/cog48.png",
+			"sizes": "48x48",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/app/cog64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/app/cog128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/app/cog256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/app/cog512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}

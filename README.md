@@ -21,9 +21,9 @@
   - [x] HTTPS and responsiveness should be implemented by developer
   - [x] AMP and Schema.org metadata should be implemented by developer
   - [ ] TODO: Offline mode with Service Workers
-  - [ ] TODO: Web App Manifest
+  - [x] Web App Manifest
   - [ ] TODO: Client-side cache by Service Workers
-  - [ ] TODO: App icons
+  - [x] App icons
 - [x] SPA with splitted chunks and async loading
 - [x] Dynamic styles by JSS
   - [x] SSR with dynamic styles (critical CSS)

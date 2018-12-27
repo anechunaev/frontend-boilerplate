@@ -41,6 +41,7 @@ export default (req: Express.Request, res: Express.Response) => {
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<title>${res.locals.title || 'Frontend Boilerplate'}</title>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+			<link rel="manifest" href="/manifest.webmanifest" />
 			<style type="text/css" id="server-side-styles">${css}</style>
 		</head>
 		<body>
