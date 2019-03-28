@@ -4,14 +4,12 @@ import loadable from 'react-loadable';
 import pageTemplate from './middlewares/pageTemplate';
 import pageNotFound from './middlewares/404';
 import staticUrls from './middlewares/staticUrls';
+import errorRequestHandler from './middlewares/errorRequestHandler';
+import getShutdownHandler from './lib/gracefulShutdown';
 
 const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || '0.0.0.0';
 const app = Express();
-
-const errorRequestHandler: Express.ErrorRequestHandler = (err, _req, _res, _next) => {
-	console.error(err);
-}
 
 app.use('/dist', Express.static('dist/public'));
 app.use('/', Express.static('static'));
@@ -27,8 +25,19 @@ process.on('unhandledRejection', (reason, promise) => {
 	process.exit(1);
 });
 
-loadable.preloadAll().then(() => {
-	app.listen(+PORT, HOST, () => {
-		console.log(`Server @ http://${HOST}:${PORT}`);
+loadable.preloadAll().then(function onBundlesPreloaded() {
+	const server = app.listen(+PORT, HOST, function onAppStart() {
+		console.log(`==> Server @ http://${HOST}:${PORT}`);
+	});
+	const shutdown = getShutdownHandler(server);
+
+	process.on('SIGINT', function onSigint () {
+		console.info('\n==> Got SIGINT. Graceful shutdown @ ' + (new Date()).toISOString());
+		shutdown();
+	});
+
+	process.on('SIGTERM', function onSigterm () {
+		console.info('\n==> Got SIGTERM. Graceful shutdown @ ' + (new Date()).toISOString());
+		shutdown();
 	});
 });

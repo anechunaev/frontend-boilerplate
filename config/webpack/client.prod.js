@@ -1,16 +1,24 @@
-const { resolve } = require('path');
+const {
+	resolve
+} = require('path');
 const webpack = require('webpack');
-const { CheckerPlugin } = require('awesome-typescript-loader');
+const {
+	CheckerPlugin
+} = require('awesome-typescript-loader');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
-const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const {
+	ReactLoadablePlugin
+} = require('react-loadable/webpack');
 
 module.exports = {
 	mode: 'production',
 	target: 'web',
 	context: resolve(__dirname),
-	entry: { client: resolve(__dirname, '../../src/client/index.tsx') },
+	entry: {
+		client: resolve(__dirname, '../../src/client/index.tsx')
+	},
 	output: {
 		filename: '[name].prod.[contenthash].js',
 		chunkFilename: '[name].chunk.prod.[contenthash].js',
@@ -25,23 +33,19 @@ module.exports = {
 		],
 	},
 	module: {
-		rules: [
-			{
-				test: /\.(j|t)sx?$/,
-				use: [
-					{
-						loader: 'awesome-typescript-loader',
-						options: {
-							useCahce: true,
-							forceIsolatedModules: true,
-							reportFiles: [ "src/**/*.{ts,tsx}" ],
-							silent: true,
-						},
-					},
-				],
-				exclude: /node_modules/,
-			},
-		],
+		rules: [{
+			test: /\.(j|t)sx?$/,
+			use: [{
+				loader: 'awesome-typescript-loader',
+				options: {
+					useCahce: true,
+					forceIsolatedModules: true,
+					reportFiles: ["src/**/*.{ts,tsx}"],
+					silent: true,
+				},
+			}, ],
+			exclude: /node_modules/,
+		}, ],
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
@@ -49,6 +53,8 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
+				HOST: JSON.stringify(process.env.HOST),
+				PORT: JSON.stringify(process.env.PORT),
 			},
 			PRODUCTION: JSON.stringify(true),
 		}),

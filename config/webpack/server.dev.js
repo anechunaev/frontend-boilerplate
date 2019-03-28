@@ -1,12 +1,18 @@
-const { resolve } = require('path');
+const {
+	resolve
+} = require('path');
 const webpack = require('webpack');
-const { CheckerPlugin } = require('awesome-typescript-loader');
+const {
+	CheckerPlugin
+} = require('awesome-typescript-loader');
 
 module.exports = {
 	mode: 'development',
 	target: 'node',
 	context: resolve(__dirname),
-	entry: { server: resolve(__dirname, '../../src/server/index.tsx') },
+	entry: {
+		server: resolve(__dirname, '../../src/server/index.tsx')
+	},
 	output: {
 		filename: '[name].js',
 		chunkFilename: '[name].chunk.js',
@@ -21,23 +27,19 @@ module.exports = {
 		],
 	},
 	module: {
-		rules: [
-			{
-				test: /\.(j|t)sx?$/,
-				use: [
-					{
-						loader: 'awesome-typescript-loader',
-						options: {
-							useCache: true,
-							forceIsolatedModules: true,
-							reportFiles: [ "src/**/*.{ts,tsx}" ],
-							silent: true,
-						},
-					},
-				],
-				exclude: /node_modules/,
-			},
-		],
+		rules: [{
+			test: /\.(j|t)sx?$/,
+			use: [{
+				loader: 'awesome-typescript-loader',
+				options: {
+					useCache: true,
+					forceIsolatedModules: true,
+					reportFiles: ["src/**/*.{ts,tsx}"],
+					silent: true,
+				},
+			}, ],
+			exclude: /node_modules/,
+		}, ],
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
@@ -45,6 +47,8 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
+				HOST: JSON.stringify(process.env.HOST),
+				PORT: JSON.stringify(process.env.PORT),
 			},
 			PRODUCTION: JSON.stringify(false),
 			__dirname: JSON.stringify(__dirname),

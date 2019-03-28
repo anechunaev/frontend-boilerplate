@@ -35,7 +35,7 @@ export default (req: Express.Request, res: Express.Response) => {
 	})()`);
 
 	res.send(`<!DOCTYPE html>
-		<html lang="ru">
+		<html lang="en">
 		<head>
 			<meta charset="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />

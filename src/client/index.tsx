@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 window.addEventListener("load", () => {
 	const generatedStyles = document.getElementById('server-side-styles');
-	if (!!generatedStyles) generatedStyles.remove();
+	if (!!generatedStyles) generatedStyles.outerHTML = '';
 });
 
 document.addEventListener("DOMContentLoaded", () => {

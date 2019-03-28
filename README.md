@@ -1,9 +1,9 @@
 # Modern Web Frontend Boilerplate
 
 ## Technologies
-- **Client-side:** TypeScript, React
-- **Server-side:** TypeScript, Node.js
-- **Routing:** Express, React-Router
+- **Client-side:** TypeScript v3, React v16
+- **Server-side:** TypeScript v3, Node.js v11
+- **Routing:** Express v4, React-Router v5
 
 ## Limitations and restrictions
 
@@ -25,6 +25,8 @@
   - [ ] TODO: Client-side cache by Service Workers
   - [x] App icons
 - [x] SPA with splitted chunks and async loading
+- [x] Server graceful shutdown
+- [ ] Add cache service with Varnish
 - [x] Dynamic styles by JSS
   - [x] SSR with dynamic styles (critical CSS)
   - [ ] TODO: SSR with above-the-fold CSS
@@ -58,16 +60,18 @@
 
 ## How to build
 Production build:
-```
+```sh
 $ npm run build
 ```
 
 Development build:
-```
+```sh
 $ npm run dev:build
 ```
 
 Start server:
-```
+```sh
 $ npm start
+# or
+$ /usr/bin/env sh ./bin/start.sh
 ```
