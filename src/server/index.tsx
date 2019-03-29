@@ -7,15 +7,21 @@ import staticUrls from './middlewares/staticUrls';
 import errorRequestHandler from './middlewares/errorRequestHandler';
 import healthcheck from './middlewares/healthcheck';
 import getShutdownHandler from './lib/gracefulShutdown';
+import * as expressStaticGzip from "express-static-gzip";
 
 const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || '0.0.0.0';
 const app = Express();
 
-app.use('/dist', Express.static('dist/public'));
-app.use('/', Express.static('static'));
+app.disable('x-powered-by');
 app.all('/healthcheck', healthcheck);
 app.all('*', morgan('tiny'));
+app.use('/dist', expressStaticGzip('dist/public', {
+	enableBrotli: true,
+	index: false,
+	orderPreference: ['br', 'gzip'],
+}));
+app.use('/', Express.static('static'));
 app.all('*', staticUrls);
 app.all('/', pageTemplate);
 app.all('/:page', pageTemplate);

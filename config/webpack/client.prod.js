@@ -11,6 +11,8 @@ const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
 const {
 	ReactLoadablePlugin
 } = require('react-loadable/webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliCompression = require("brotli-webpack-plugin");
 
 module.exports = {
 	mode: 'production',
@@ -63,6 +65,13 @@ module.exports = {
 		new AsyncChunkNamesPlugin(),
 		new ReactLoadablePlugin({
 			filename: './dist/react-loadable.json',
+		}),
+		new CompressionPlugin({
+			cache: true,
+			minRatio: 0.9,
+		}),
+		new BrotliCompression({
+			minRatio: 0.9,
 		}),
 	],
 	optimization: {
