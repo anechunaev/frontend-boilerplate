@@ -5,6 +5,7 @@ import pageTemplate from './middlewares/pageTemplate';
 import pageNotFound from './middlewares/404';
 import staticUrls from './middlewares/staticUrls';
 import errorRequestHandler from './middlewares/errorRequestHandler';
+import healthcheck from './middlewares/healthcheck';
 import getShutdownHandler from './lib/gracefulShutdown';
 
 const PORT = process.env.PORT || 8080;
@@ -13,6 +14,7 @@ const app = Express();
 
 app.use('/dist', Express.static('dist/public'));
 app.use('/', Express.static('static'));
+app.all('/healthcheck', healthcheck);
 app.all('*', morgan('tiny'));
 app.all('*', staticUrls);
 app.all('/', pageTemplate);

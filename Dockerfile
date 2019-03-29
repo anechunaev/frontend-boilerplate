@@ -30,6 +30,8 @@ EXPOSE $PORT $PORT_DEBUG
 
 RUN sh /usr/share/app/bin/build.sh
 
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "/usr/share/app/bin/healthcheck.sh" ]
+
 USER 1001
 
 CMD [ "sh", "./bin/start.sh" ]
