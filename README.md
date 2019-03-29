@@ -27,7 +27,7 @@
 - [x] SPA with splitted chunks and async loading
 - [x] Webpack bundles compression with gzip and [brotli](https://github.com/google/brotli)
 - [x] Server graceful shutdown
-- [ ] Add cache service with Varnish
+- [x] Add cache service with [Varnish](https://varnish-cache.org)
 - [x] Dynamic styles by JSS
   - [x] SSR with dynamic styles (critical CSS)
   - [ ] TODO: SSR with above-the-fold CSS

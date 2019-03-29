@@ -9,7 +9,7 @@ import healthcheck from './middlewares/healthcheck';
 import getShutdownHandler from './lib/gracefulShutdown';
 import * as expressStaticGzip from "express-static-gzip";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const HOST = process.env.HOST || '0.0.0.0';
 const app = Express();
 

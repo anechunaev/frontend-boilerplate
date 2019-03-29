@@ -34,6 +34,9 @@ export default (req: Express.Request, res: Express.Response) => {
 		);
 	})()`);
 
+	// TODO probably you should to remove this header
+	res.set('Cache-Control', 'public, max-age=' + 24 * 60 * 60); // Cache on 1 day
+
 	res.send(`<!DOCTYPE html>
 		<html lang="en">
 		<head>

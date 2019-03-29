@@ -4,9 +4,12 @@ ENV TERM xterm
 ENV LANG en_US.UTF-8
 ENV TZ='Europe/Moscow'
 
+RUN apk add --no-cache varnish=~6
+
 RUN mkdir -p /usr/share/app && chown 1001:0 /usr/share/app
 RUN mkdir -p /usr/share/app/.npm && chown 1001:0 /usr/share/app/.npm
 RUN mkdir -p /usr/share/app/.npm-global && chown 1001:0 /usr/share/app/.npm-global
+RUN mkdir -p /usr/share/app/varnish && chown 1001:0 /usr/share/app/varnish
 WORKDIR /usr/share/app
 
 ENV NO_UPDATE_NOTIFIER=true
@@ -19,14 +22,19 @@ COPY . /usr/share/app
 
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
-ARG PORT=8080
+ARG CACHE_PORT=8080
+ENV CACHE_PORT $CACHE_PORT
+ARG PORT=8081
 ENV PORT $PORT
 ARG HOST='0.0.0.0'
 ENV HOST $HOST
 ARG PORT_DEBUG=9229
 ENV PORT_DEBUG $PORT_DEBUG
 
-EXPOSE $PORT $PORT_DEBUG
+# Change $PORT in Varnish config because constant is expected
+RUN sed -i "s/\${PORT}/\"$PORT\"/g" /usr/share/app/config/varnish.vcl
+
+EXPOSE $CACHE_PORT $PORT_DEBUG
 
 RUN sh /usr/share/app/bin/build.sh
 
