@@ -13,10 +13,10 @@ const app = Express();
 
 app.use('/dist', Express.static('dist/public'));
 app.use('/', Express.static('static'));
+app.all('*', morgan('tiny'));
 app.all('*', staticUrls);
 app.all('/', pageTemplate);
 app.all('/:page', pageTemplate);
-app.all('*', morgan('common'));
 app.all('*', errorRequestHandler);
 app.all('*', pageNotFound);
 
