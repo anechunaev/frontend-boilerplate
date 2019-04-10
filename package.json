@@ -15,7 +15,7 @@
     "dev:build:client": "./node_modules/.bin/webpack --mode=development --config=config/webpack/client.dev.js --hideModules",
     "dev:build:server": "./node_modules/.bin/webpack --mode=development --config=config/webpack/server.dev.js --hideModules",
     "dev:build": "npm run dev:build:client & npm run dev:build:server",
-    "start": "node dist/server.js"
+    "start": "node --icu-data-dir=node_modules/full-icu dist/server.js"
   },
   "devDependencies": {
     "@types/csso": "^3.5.0",
@@ -41,6 +41,7 @@
     "csso": "^3.5.1",
     "express": "^4.16.4",
     "express-static-gzip": "^1.1.3",
+    "full-icu": "^1.2.1",
     "jss": "^9.8.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

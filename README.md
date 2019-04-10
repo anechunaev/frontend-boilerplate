@@ -28,6 +28,7 @@
 - [x] Webpack bundles compression with gzip and [brotli](https://github.com/google/brotli)
 - [x] Server graceful shutdown
 - [x] Add cache service with [Varnish](https://varnish-cache.org)
+- [x] Internationalization support with `Intl` API for Node.js
 - [x] Dynamic styles by JSS
   - [x] SSR with dynamic styles (critical CSS)
   - [ ] TODO: SSR with above-the-fold CSS
