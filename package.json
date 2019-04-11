@@ -15,6 +15,9 @@
     "dev:build:client": "./node_modules/.bin/webpack --mode=development --config=config/webpack/client.dev.js --hideModules",
     "dev:build:server": "./node_modules/.bin/webpack --mode=development --config=config/webpack/server.dev.js --hideModules",
     "dev:build": "npm run dev:build:client & npm run dev:build:server",
+    "docker:build": "docker build . -t frontend-boilerplate",
+    "docker:push": "docker push bungubot/common:frontend-boilerplate",
+    "docker:run": "docker run --name frontend-boilerplate --rm -p 8080:8080 -it frontend-boilerplate",
     "start": "node --icu-data-dir=node_modules/full-icu dist/server.js"
   },
   "devDependencies": {

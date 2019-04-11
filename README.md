@@ -15,6 +15,10 @@
 **Client-side:**
 - IE browser is not supported (we are modern, right?)
 
+## Docker repository
+
+`bungubot/common:frontend-boilerplate`
+
 
 ## Additional features
 - [ ] TODO: PWA
@@ -36,7 +40,6 @@
 - [ ] TODO: Use GraphQL to implement client-server-client messaging
 - [ ] TODO: Web Fragments
   - [ ] TODO: Implement Entity-component-system pattern for client-side or isomorphic applications
-  - [ ] TODO: Web Components server-side-rendering
   - [ ] TODO: Server-side dynamic polyfills loading
 - [ ] TODO: Quality assurance tools
   - [ ] TODO: Integrate framework for unit-testing
