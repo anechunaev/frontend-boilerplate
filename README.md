@@ -17,7 +17,7 @@
 
 ## Docker repository
 
-`bungubot/common:frontend-boilerplate`
+`bungubot/frontend-boilerplate`
 
 
 ## Additional features
