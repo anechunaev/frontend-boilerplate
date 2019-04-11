@@ -3,3 +3,4 @@ node_modules/
 .awcache-browser/
 .awcache-server/
 .awcache
+.DS_Store/
