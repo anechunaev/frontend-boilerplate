@@ -17,7 +17,7 @@
     "dev:build": "npm run dev:build:client & npm run dev:build:server",
     "docker:build": "docker build . -t bungubot/frontend-boilerplate",
     "docker:push": "docker push bungubot/frontend-boilerplate",
-    "docker:run": "docker run --name bungubot/frontend-boilerplate --rm -p 8080:8080 -it bungubot/frontend-boilerplate",
+    "docker:run": "docker run --name frontend-boilerplate --rm -p 8080:8080 -it bungubot/frontend-boilerplate",
     "start": "node --icu-data-dir=node_modules/full-icu dist/server.js"
   },
   "devDependencies": {
