@@ -19,49 +19,45 @@
 
 `bungubot/frontend-boilerplate`
 
+## Features
 
-## Additional features
-- [ ] TODO: PWA
-  - [x] HTTPS and responsiveness should be implemented by developer
-  - [x] AMP and Schema.org metadata should be implemented by developer
-  - [ ] TODO: Offline mode with Service Workers
-  - [x] Web App Manifest
-  - [ ] TODO: Client-side cache by Service Workers
-  - [x] App icons
-- [x] SPA with splitted chunks and async loading
-- [x] Webpack bundles compression with gzip and [brotli](https://github.com/google/brotli)
-- [x] Server graceful shutdown
-- [x] Add cache service with [Varnish](https://varnish-cache.org)
+### Build process
+
+- [x] Containerized build process with Docker
+- [x] Multi-stage build with Docker
+- [x] Generate compressed assets with gzip and [brotli](https://github.com/google/brotli)
+
+### Server-side application
+
+- [x] Graceful shutdown
+- [x] Web server response caching with [Varnish](https://varnish-cache.org)
+- [x] Server-side rendering with critical CSS
+- [x] Above-the-fold CSS
 - [x] Internationalization support with `Intl` API for Node.js
-- [x] Dynamic styles by JSS
-  - [x] SSR with dynamic styles (critical CSS)
-  - [ ] TODO: SSR with above-the-fold CSS
-  - [ ] TODO: Extract static styles to file
-- [ ] TODO: Use GraphQL to implement client-server-client messaging
-- [ ] TODO: Web Fragments
-  - [ ] TODO: Implement Entity-component-system pattern for client-side or isomorphic applications
-  - [ ] TODO: Server-side dynamic polyfills loading
-- [ ] TODO: Quality assurance tools
-  - [ ] TODO: Integrate framework for unit-testing
-  - [ ] TODO: Integrate framework for e2e testing
-  - [ ] TODO: Coverage reports
-  - [ ] TODO: Performance reports
-  - [ ] TODO: Linters and code-style checkers
-- [ ] TODO: Development tools
-  - [ ] TODO: Watcher
-  - [ ] TODO: Hot module replacement for client-side code
-  - [ ] TODO: Iterative building of client-side application
+- [ ] Use GraphQL to implement client-server-client messaging
 
-## Under consideration
-- Hot module replacement for server-side code
-- Multi-platform development (build web and mobile applications from source code)
-  - Adapt kotlin for web-development
-- API for URL generating
-  - Use route tables to create react-router and express routes
-  - Generate sitemap from route tables
-- Synchronize data in real time from all opened tabs or browsers
-- Implement built-in telemetry system
-- Internationalization tools
+### Client-side application
+
+- [x] PWA
+	- [x] Web App Manifest
+	- [x] App icons
+	- [ ] Offline mode with Service Workers
+	- [ ] Client-side cache with Service Workers
+- [x] SPA with splitted chunks and async loading
+- [x] Dynamic styling and theming with JSS
+- [ ] Use GraphQL to implement client-server-client messaging
+
+### Development tools
+
+- [ ] Quality assurance tools
+	- [ ] Integrate framework for unit-testing
+	- [ ] Integrate framework for e2e testing
+	- [ ] Coverage reports
+	- [ ] Performance reports
+	- [ ] Linters and code-style checkers
+- [ ] Watcher
+- [ ] Hot module replacement for client-side code
+- [ ] Iterative assets building
 
 ## How to build
 Production build:
@@ -78,5 +74,5 @@ Start server:
 ```sh
 $ npm start
 # or
-$ /usr/bin/env sh ./bin/start.sh
+$ ./bin/start.sh
 ```
