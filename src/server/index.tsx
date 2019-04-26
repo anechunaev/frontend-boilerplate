@@ -1,9 +1,9 @@
 import * as morgan from 'morgan';
 import * as Express from 'express';
 import loadable from 'react-loadable';
-import pageTemplate from './middlewares/pageTemplate';
-import pageNotFound from './middlewares/404';
-import staticUrls from './middlewares/staticUrls';
+import pageTemplate from './middlewares/serverSideRender';
+import pageNotFound from './middlewares/handler404';
+import staticUrls from './middlewares/assetsUrls';
 import errorRequestHandler from './middlewares/errorRequestHandler';
 import healthcheck from './middlewares/healthcheck';
 import getShutdownHandler from './lib/gracefulShutdown';
@@ -28,7 +28,7 @@ app.all('/:page', pageTemplate);
 app.all('*', errorRequestHandler);
 app.all('*', pageNotFound);
 
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', function unhandledRejectionHandler(reason, promise) {
 	console.error("Unhandled rejection at:\n", promise, "\n\nReason: ", reason);
 	process.exit(1);
 });
@@ -39,12 +39,12 @@ loadable.preloadAll().then(function onBundlesPreloaded() {
 	});
 	const shutdown = getShutdownHandler(server);
 
-	process.on('SIGINT', function onSigint () {
+	process.on('SIGINT', function onSigInt () {
 		console.info('\n==> Got SIGINT. Graceful shutdown @ ' + (new Date()).toISOString());
 		shutdown();
 	});
 
-	process.on('SIGTERM', function onSigterm () {
+	process.on('SIGTERM', function onSigTerm () {
 		console.info('\n==> Got SIGTERM. Graceful shutdown @ ' + (new Date()).toISOString());
 		shutdown();
 	});

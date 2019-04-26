@@ -7,7 +7,7 @@ import Chain from '../../app/chain';
 import * as csso from 'csso';
 import * as Express from 'express';
 
-export default (req: Express.Request, res: Express.Response) => {
+export default function middlewareServerSideRender(req: Express.Request, res: Express.Response) {
 	const route = {};
 	const sheets = new SheetsRegistry();
 	const modules: string[] = [];
@@ -34,7 +34,7 @@ export default (req: Express.Request, res: Express.Response) => {
 		);
 	})()`);
 
-	// TODO probably you should to remove this header
+	// TODO probably you should remove this header
 	res.set('Cache-Control', 'public, max-age=' + 24 * 60 * 60); // Cache on 1 day
 
 	res.send(`<!DOCTYPE html>
