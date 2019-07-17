@@ -2,6 +2,7 @@ import * as React from 'react';
 import { hydrate } from 'react-dom';
 import Chain from '../app/chain';
 import { BrowserRouter } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
 window.addEventListener("load", () => {
 	const generatedStyles = document.getElementById('server-side-styles');
@@ -10,13 +11,15 @@ window.addEventListener("load", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	const container = document.getElementById('main');
-	hydrate(
-		<BrowserRouter>
-			<Chain />
-		</BrowserRouter>,
-		container,
-		() => {
-			if (container) container.dataset.render = "client";
-		}
-	);
+	Loadable.preloadReady().then(() => {
+		hydrate(
+			<BrowserRouter>
+				<Chain />
+			</BrowserRouter>,
+			container,
+			() => {
+				if (container) container.dataset.render = "client";
+			}
+		);
+	});
 });
