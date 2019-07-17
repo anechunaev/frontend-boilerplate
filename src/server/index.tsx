@@ -33,6 +33,11 @@ process.on('unhandledRejection', function unhandledRejectionHandler(reason, prom
 	process.exit(1);
 });
 
+process.on('uncaughtException', function uncaughtExceptionHandler(error) {
+	console.error("Uncaught exception:\n", error);
+	process.exit(1);
+});
+
 loadable.preloadAll().then(function onBundlesPreloaded() {
 	const server = app.listen(+PORT, HOST, function onAppStart() {
 		console.log(`==> Server @ http://${HOST}:${PORT}`);
