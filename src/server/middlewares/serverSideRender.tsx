@@ -34,8 +34,8 @@ export default function middlewareServerSideRender(req: Express.Request, res: Ex
 		);
 	})()`);
 
-	// TODO probably you should remove this header
-	res.set('Cache-Control', 'public, max-age=' + 24 * 60 * 60); // Cache on 1 day
+	// Add Cache-Control header to enable browser http-cache and Varnish caching
+	// res.set('Cache-Control', 'public, max-age=' + 24 * 60 * 60); // Cache on 1 day
 
 	res.send(`<!DOCTYPE html>
 		<html lang="en">

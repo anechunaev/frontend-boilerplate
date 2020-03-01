@@ -4,3 +4,4 @@ node_modules/
 .awcache-server/
 .awcache
 .DS_Store/
+.vscode/

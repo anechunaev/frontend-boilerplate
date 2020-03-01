@@ -28,16 +28,6 @@ app.all('/:page', pageTemplate);
 app.all('*', errorRequestHandler);
 app.all('*', pageNotFound);
 
-process.on('unhandledRejection', function unhandledRejectionHandler(reason, promise) {
-	console.error("Unhandled rejection at:\n", promise, "\n\nReason: ", reason);
-	process.exit(1);
-});
-
-process.on('uncaughtException', function uncaughtExceptionHandler(error) {
-	console.error("Uncaught exception:\n", error);
-	process.exit(1);
-});
-
 loadable.preloadAll().then(function onBundlesPreloaded() {
 	const server = app.listen(+PORT, HOST, function onAppStart() {
 		console.log(`==> Server @ http://${HOST}:${PORT}`);
@@ -51,6 +41,18 @@ loadable.preloadAll().then(function onBundlesPreloaded() {
 
 	process.on('SIGTERM', function onSigTerm () {
 		console.info('\n==> Got SIGTERM. Graceful shutdown @ ' + (new Date()).toISOString());
+		shutdown();
+	});
+
+	process.on('unhandledRejection', function unhandledRejectionHandler(reason, promise) {
+		console.error("Unhandled rejection at:\n", promise, "\n\nReason: ", reason);
+		process.exitCode = 1;
+		shutdown();
+	});
+	
+	process.on('uncaughtException', function uncaughtExceptionHandler(error) {
+		console.error("Uncaught exception:\n", error);
+		process.exitCode = 1;
 		shutdown();
 	});
 });
