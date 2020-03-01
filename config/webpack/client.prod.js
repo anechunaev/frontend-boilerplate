@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const {
 	CheckerPlugin
 } = require('awesome-typescript-loader');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
 const {
@@ -75,14 +75,17 @@ module.exports = {
 		}),
 	],
 	optimization: {
+		minimize: true,
 		minimizer: [
-			new UglifyJsPlugin({
+			new TerserPlugin({
 				sourceMap: true,
-				uglifyOptions: {
+				terserOptions: {
+					output: {
+						comments: false,
+					},
 					compress: {
 						drop_console: true,
 					},
-					dead_code: true,
 				},
 			}),
 		],

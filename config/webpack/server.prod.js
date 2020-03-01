@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const {
 	CheckerPlugin
 } = require('awesome-typescript-loader');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
@@ -61,11 +61,8 @@ module.exports = {
 	],
 	optimization: {
 		minimizer: [
-			new UglifyJsPlugin({
+			new TerserPlugin({
 				sourceMap: true,
-				uglifyOptions: {
-					dead_code: true,
-				},
 			}),
 		],
 	},
