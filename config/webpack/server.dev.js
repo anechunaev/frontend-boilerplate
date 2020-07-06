@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const {
 	CheckerPlugin
 } = require('awesome-typescript-loader');
+const { TutuLangExtractPlugin } = require('@tutu/lang/lib/webpack');
 
 module.exports = {
 	mode: 'development',
@@ -57,5 +58,12 @@ module.exports = {
 		new webpack.optimize.LimitChunkCountPlugin({
 			maxChunks: 1,
 		}),
+		// new TutuLangExtractPlugin({
+		// 	apiKey: 'fc257c16d9fd0eeb41893debbe226a2f16689bc9',
+		// 	projectId: '970301685e4d1f3714c7b4.32832284',
+		// 	test: /\.labels\.json$/,
+		// 	include: /\bnode_modules\/@tutu\b/,
+		// 	exclude: /\bnode_modules\b/,
+		// }),
 	],
 };

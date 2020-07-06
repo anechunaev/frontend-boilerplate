@@ -13,6 +13,7 @@ const {
 } = require('react-loadable/webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BrotliCompression = require("brotli-webpack-plugin");
+const { TutuLangExtractPlugin } = require('@tutu/lang/lib/webpack');
 
 module.exports = {
 	mode: 'production',
@@ -66,29 +67,34 @@ module.exports = {
 		new ReactLoadablePlugin({
 			filename: './dist/react-loadable.json',
 		}),
-		new CompressionPlugin({
-			cache: true,
-			minRatio: 0.9,
-		}),
-		new BrotliCompression({
-			minRatio: 0.9,
+		// new CompressionPlugin({
+		// 	cache: true,
+		// 	minRatio: 0.9,
+		// }),
+		// new BrotliCompression({
+		// 	minRatio: 0.9,
+		// }),
+		new TutuLangExtractPlugin({
+			apiKey: 'fc257c16d9fd0eeb41893debbe226a2f16689bc9',
+			projectId: '970301685e4d1f3714c7b4.32832284',
+			chunkNameTemplate: 'module.[lng].json',
 		}),
 	],
 	optimization: {
-		minimize: true,
-		minimizer: [
-			new TerserPlugin({
-				sourceMap: true,
-				terserOptions: {
-					output: {
-						comments: false,
-					},
-					compress: {
-						drop_console: true,
-					},
-				},
-			}),
-		],
+		// minimize: true,
+		// minimizer: [
+		// 	new TerserPlugin({
+		// 		sourceMap: true,
+		// 		terserOptions: {
+		// 			output: {
+		// 				comments: false,
+		// 			},
+		// 			compress: {
+		// 				drop_console: true,
+		// 			},
+		// 		},
+		// 	}),
+		// ],
 		splitChunks: {
 			cacheGroups: {
 				vendor: {

@@ -15,7 +15,7 @@ const app = Express();
 
 app.disable('x-powered-by');
 app.all('/healthcheck', healthcheck);
-app.all('*', morgan('tiny'));
+app.use(morgan('tiny'));
 app.use('/dist', expressStaticGzip('dist/public', {
 	enableBrotli: true,
 	index: false,
