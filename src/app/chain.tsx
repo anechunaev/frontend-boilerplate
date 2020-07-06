@@ -5,7 +5,6 @@ import Menu from './components/Menu';
 import routingTable, { getRouteById } from './routingTable';
 import { Projects } from '@tutu-react/projects-toolbar';
 import EuropeanLayout from '@tutu-react/europe-page-layout';
-import i18n from '@tutu/lang/lib/core/i18n';
 
 const locale = 'en';
 const currency = 'USD';
@@ -19,12 +18,6 @@ const layoutProps = {
 	},
 	localeSwitcherProps:{
 		locale,
-		onChange: (err: Error | null, newLocale: string) => {
-			if (err) throw err;
-
-			console.log('==> New locale:', newLocale);
-			i18n.changeLanguage(newLocale);
-		}
 	},
 	projectsToolbarProps:{
 		projectsParams: {
