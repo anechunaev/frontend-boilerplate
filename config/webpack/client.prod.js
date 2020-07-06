@@ -48,7 +48,20 @@ module.exports = {
 				},
 			}, ],
 			exclude: /node_modules/,
-		}, ],
+		}, {
+			test: /\.css$/i,
+			use: ['style-loader', 'css-loader'],
+		  },{
+			test: /\.(svg|png|jpg|gif)$/i,
+			use: [
+			  {
+				loader: 'url-loader',
+				options: {
+				  limit: 8192,
+				},
+			  },
+			],
+		  },],
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),

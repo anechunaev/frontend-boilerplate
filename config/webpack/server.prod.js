@@ -41,7 +41,23 @@ module.exports = {
 				},
 			}, ],
 			exclude: /node_modules/,
-		}, ],
+		}, {
+			test: /\.css$/i,
+			use: ['style-loader',{loader: 'css-loader', options: {
+				onlyLocals: true,
+			  }}],
+			
+		  },{
+			test: /\.(svg|png|jpg|gif)$/i,
+			use: [
+			  {
+				loader: 'url-loader',
+				options: {
+				  limit: 8192,
+				},
+			  },
+			],
+		  },],
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
@@ -59,11 +75,10 @@ module.exports = {
 		new webpack.optimize.LimitChunkCountPlugin({
 			maxChunks: 1,
 		}),
-		// new TutuLangExtractPlugin({
-		// 	apiKey: 'fc257c16d9fd0eeb41893debbe226a2f16689bc9',
-		// 	projectId: '970301685e4d1f3714c7b4.32832284',
-		// 	chunkNameTemplate: 'server.[lng].json',
-		// }),
+		new TutuLangExtractPlugin({
+			shouldDownload: false,
+			shouldUpload: false,
+		}),
 	],
 	// optimization: {
 	// 	minimizer: [

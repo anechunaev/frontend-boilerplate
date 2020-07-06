@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			.use(LanguageDetector)
 			.use(initReactI18next)
 			.init({
-				lng: "dev",
+				lng: "en",
 				fallbackLng: false,
 				debug: true,
 				backend: {

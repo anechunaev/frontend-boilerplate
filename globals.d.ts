@@ -15,3 +15,8 @@ declare module 'express-static-gzip' {
 	const mod: (path: string, options?: {[key: string]: any}) => any;
 	export = mod;
 }
+
+declare module 'i18next-fs-backend' {
+	const mod: any;
+	export default mod;
+}

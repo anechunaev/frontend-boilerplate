@@ -6,11 +6,36 @@ import { Capture } from 'react-loadable';
 import Chain from '../../app/chain';
 import * as csso from 'csso';
 import * as Express from 'express';
+import i18n from '@tutu/lang/lib/core/i18n';
+import { initReactI18next } from 'react-i18next';
+import Backend from 'i18next-fs-backend';
+import path from 'path';
 
-export default function middlewareServerSideRender(req: Express.Request, res: Express.Response) {
+i18n
+	.use(Backend)
+	.use(initReactI18next)
+	.init({
+		defaultNS: 'module',
+		lng: 'en',
+		fallbackLng: 'dev',
+		supportedLngs: ['en', 'de', 'ru', 'dev'],
+		backend: {
+			loadPath: path.resolve(__dirname, '../../dist/public') + '/{{ns}}.{{lng}}.json',
+		},
+		ns: [ "module" ],
+
+		interpolation: {
+			escapeValue: false
+		},
+
+		debug: true,
+	});
+
+export default async function middlewareServerSideRender(req: Express.Request, res: Express.Response) {
 	const route = {};
 	const sheets = new SheetsRegistry();
 	const modules: string[] = [];
+	await i18n.changeLanguage("de");
 
 	const components = (
 		<StaticRouter location={req.url} context={route}>
