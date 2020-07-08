@@ -90,7 +90,7 @@ module.exports = {
 		new TutuLangExtractPlugin({
 			apiKey: 'fc257c16d9fd0eeb41893debbe226a2f16689bc9',
 			projectId: '970301685e4d1f3714c7b4.32832284',
-			chunkNameTemplate: 'module.[lng].json',
+			chunkNameTemplate: '[name].[lng].json',
 		}),
 	],
 	optimization: {

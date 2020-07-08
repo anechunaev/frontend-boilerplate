@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { hydrate } from 'react-dom';
+import { render } from 'react-dom';
+// import { hydrate } from 'react-dom';
 import Chain from '../app/chain';
 import { BrowserRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
-// import i18n from "i18next";
 import i18n from '@tutu/lang/lib/core/i18n';
 import { initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
+// import Backend from '../backend';
 
 window.addEventListener("load", () => {
 	const generatedStyles = document.getElementById('server-side-styles');
@@ -19,18 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
 		Loadable.preloadReady(),
 		i18n
-			.use(Backend)
-			.use(LanguageDetector)
+			.use(Backend as any)
 			.use(initReactI18next)
 			.init({
-				lng: "en",
+				lng: "de",
 				fallbackLng: false,
 				debug: true,
+				supportedLngs: ['en', 'de', 'ru', 'dev'],
 				backend: {
 					loadPath: '/dist/{{ns}}.{{lng}}.json',
 				},
-				defaultNS: "module",
-				ns: [ "module" ],
+				defaultNS: 'module',
+				ns: ['main', 'vendor'],
 
 				interpolation: {
 					escapeValue: false
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}),
 	]).then(() => {
 		(window as any).i18n = i18n;
-		hydrate(
+		render(
 				<BrowserRouter>
 					<Chain />
 				</BrowserRouter>,

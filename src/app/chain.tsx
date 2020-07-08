@@ -5,6 +5,7 @@ import Menu from './components/Menu';
 import routingTable, { getRouteById } from './routingTable';
 import { Projects } from '@tutu-react/projects-toolbar';
 import EuropeanLayout from '@tutu-react/europe-page-layout';
+import LanguageProvider from '@tutu/lang/lib/react/provider';
 
 const locale = 'en';
 const currency = 'USD';
@@ -37,7 +38,6 @@ const layoutProps = {
 		current: Projects.SEARCH,
 		user:
 		{
-			picture: 'https://bigenc.ru/media/2016/10/27/1235204139/18636.jpg',
 			firstName: 'Длинная',
 			lastName: 'картинка',
 		},
@@ -48,17 +48,29 @@ const layoutProps = {
 }
 
 
-export default ({ registry }: {registry?: ISheetsRegistry}) => (
-	<JssProvider registry={registry}>
-		<div>
-			<Menu routingTable={routingTable} />
-			<Switch>
-				<Route exact path={getRouteById('main').path} component={getRouteById('main').component} />
-				<Route exact path={getRouteById('demo').path} component={getRouteById('demo').component} />
-			</Switch>
-		</div>
-		<EuropeanLayout {...layoutProps}>
-			Inside Layout
-		</EuropeanLayout>
-	</JssProvider>
-);
+export default ({ registry }: {registry?: ISheetsRegistry}) => {
+	const [lang, setLocale] = React.useState(locale);
+	// i18n.changeLanguage(lang);
+	return (
+		<LanguageProvider language={lang}>
+			<JssProvider registry={registry}>
+				<div>
+					<Menu routingTable={routingTable} />
+					<div>
+						<button type="button" onClick={() => setLocale('en')}>En</button>
+						<button type="button" onClick={() => setLocale('de')}>De</button>
+						<button type="button" onClick={() => setLocale('ru')}>Ru</button>
+						<button type="button" onClick={() => setLocale('dev')}>Dev</button>
+					</div>
+					<Switch>
+						<Route exact path={getRouteById('main').path} component={getRouteById('main').component} />
+						<Route exact path={getRouteById('demo').path} component={getRouteById('demo').component} />
+					</Switch>
+				</div>
+				<EuropeanLayout {...layoutProps}>
+					Inside Layout
+				</EuropeanLayout>
+			</JssProvider>
+		</LanguageProvider>
+	);
+};

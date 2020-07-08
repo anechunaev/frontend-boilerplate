@@ -15,14 +15,14 @@ i18n
 	.use(Backend)
 	.use(initReactI18next)
 	.init({
-		defaultNS: 'module',
+		defaultNS: 'server',
 		lng: 'en',
 		fallbackLng: 'dev',
 		supportedLngs: ['en', 'de', 'ru', 'dev'],
 		backend: {
-			loadPath: path.resolve(__dirname, '../../dist/public') + '/{{ns}}.{{lng}}.json',
+			loadPath: path.resolve(__dirname, '../../dist') + '/{{ns}}.{{lng}}.json',
 		},
-		ns: [ "module" ],
+		ns: [ "server" ],
 
 		interpolation: {
 			escapeValue: false
