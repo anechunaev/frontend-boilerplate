@@ -12,8 +12,15 @@ const routingTable = [
 				Page: () => import('./pages/main'),
 				labels: () => {
 					if (typeof window !== 'undefined') {
-						console.log('===> LOAD MAIN');
-						return i18next.loadNamespaces(['main', 'vendor']).catch(console.log);
+						return new Promise((resolve, reject) => {
+							i18next.on('initialized', () => {
+								i18next.loadNamespaces(['main', 'vendor'])
+								.then((data: any) => {
+									resolve(data);
+								})
+								.catch(reject);
+							});
+						});
 					}
 					return i18next.loadNamespaces(['server']).catch(console.log);
 				},
@@ -37,8 +44,15 @@ const routingTable = [
 				Page: () => import('./pages/demo'),
 				labels: () => {
 					if (typeof window !== 'undefined') {
-						console.log('===> LOAD DEMO');
-						return i18next.loadNamespaces(['demo', 'vendor']).catch(console.log);
+						return new Promise((resolve, reject) => {
+							i18next.on('initialized', () => {
+								i18next.loadNamespaces(['demo', 'vendor'])
+								.then((data: any) => {
+									resolve(data);
+								})
+								.catch(reject);
+							});
+						});
 					}
 					return i18next.loadNamespaces(['server']).catch(console.log);
 				}
