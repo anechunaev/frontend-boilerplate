@@ -1,4 +1,4 @@
-FROM node:11-alpine as builder
+FROM node:14-alpine as builder
 
 ARG CACHE_PORT=8080
 ARG PORT=8081
@@ -36,7 +36,7 @@ RUN sed -i "s/\${PORT}/\"$PORT\"/g" ./config/varnish.vcl
 
 
 
-FROM node:11-alpine as runner
+FROM node:14-alpine as runner
 
 ARG CACHE_PORT=8080
 ARG PORT=8081

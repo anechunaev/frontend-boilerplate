@@ -2,10 +2,10 @@ const {
 	resolve
 } = require('path');
 const webpack = require('webpack');
-const {
-	CheckerPlugin
-} = require('awesome-typescript-loader');
 const TerserPlugin = require('terser-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const { loadableTransformer } = require('loadable-ts-transformer');
 
 module.exports = {
 	mode: 'production',
@@ -30,8 +30,8 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.(j|t)sx?$/,
-			use: [{
-				loader: 'awesome-typescript-loader',
+			use: ['cache-loader', {
+				loader: 'ts-loader',
 				options: {
 					useCache: true,
 					forceIsolatedModules: true,
@@ -43,8 +43,6 @@ module.exports = {
 		}, ],
 	},
 	plugins: [
-		new webpack.NamedModulesPlugin(),
-		new webpack.HashedModuleIdsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
@@ -54,16 +52,21 @@ module.exports = {
 			PRODUCTION: JSON.stringify(true),
 			__dirname: JSON.stringify(__dirname),
 		}),
-		new CheckerPlugin(),
+		new LoadablePlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: '../../tsconfig.json',
+			},
+		}),
 		new webpack.optimize.LimitChunkCountPlugin({
 			maxChunks: 1,
 		}),
 	],
 	optimization: {
+		chunkIds: 'deterministic',
+		moduleIds: 'deterministic',
 		minimizer: [
-			new TerserPlugin({
-				sourceMap: true,
-			}),
+			new TerserPlugin(),
 		],
 	},
 };

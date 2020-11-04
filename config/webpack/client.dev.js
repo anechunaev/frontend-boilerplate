@@ -2,19 +2,16 @@ const {
 	resolve
 } = require('path');
 const webpack = require('webpack');
-const {
-	CheckerPlugin
-} = require('awesome-typescript-loader');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
-const {
-	ReactLoadablePlugin
-} = require('react-loadable/webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const { loadableTransformer } = require('loadable-ts-transformer');
 
 module.exports = {
 	mode: 'development',
 	target: 'web',
 	context: resolve(__dirname),
+	devtool: 'cheap-module-source-map',
 	entry: {
 		client: resolve(__dirname, '../../src/client/index.tsx')
 	},
@@ -34,21 +31,23 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.(j|t)sx?$/,
-			use: [{
-				loader: 'awesome-typescript-loader',
+			use: ['cache-loader', {
+				loader: 'ts-loader',
 				options: {
-					useCahce: true,
-					forceIsolatedModules: true,
-					reportFiles: ["src/**/*.{ts,tsx}"],
-					silent: true,
+					configFile: 'tsconfig.json',
+					transpileOnly: true,
+					logInfoToStdOut: true,
+					getCustomTransformers: () => ({ before: [loadableTransformer] }),
 				},
 			}, ],
 			exclude: /node_modules/,
 		}, ],
 	},
+	optimization: {
+		chunkIds: 'named',
+		moduleIds: 'named',
+	},
 	plugins: [
-		new webpack.NamedModulesPlugin(),
-		new webpack.HashedModuleIdsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
@@ -57,11 +56,12 @@ module.exports = {
 			},
 			PRODUCTION: JSON.stringify(false),
 		}),
-		new CheckerPlugin(),
 		new ManifestPlugin(),
-		new AsyncChunkNamesPlugin(),
-		new ReactLoadablePlugin({
-			filename: './dist/react-loadable.json',
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: '../../tsconfig.json',
+			},
 		}),
+		new LoadablePlugin(),
 	],
 };

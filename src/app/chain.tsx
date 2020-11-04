@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { JssProvider, ISheetsRegistry } from 'react-jss';
+import { JssProvider, SheetsRegistry } from 'react-jss';
 import { Switch, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import routingTable, { getRouteById } from './routingTable';
 
-export default ({ registry }: {registry?: ISheetsRegistry}) => (
+export default ({ registry }: {registry?: SheetsRegistry}) => (
 	<JssProvider registry={registry}>
 		<div>
 			<Menu routingTable={routingTable} />

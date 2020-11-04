@@ -1,30 +1,22 @@
 import memo from 'fast-memoize';
-import loadable from 'react-loadable';
+import loadable from '@loadable/component';
+import * as React from 'react';
+import Spinner from './components/Spinner';
+
+const loadingOptions = {
+	fallback: React.createElement(Spinner),
+};
 
 const routingTable = <const>[
 	{
 		id: "main",
 		path: "/",
-		component: loadable({
-			loader: () => import('./pages/main'),
-			loading: require('./components/Spinner').default,
-			delay: 300,
-			timeout: 10000,
-			modules: ['./pages/main'],
-			webpack: () => [(require as CustomNodeRequire).resolveWeak('./pages/main')],
-		}),
+		component: loadable(() => import(/* webpackChunkName: "main" */'./pages/main'), loadingOptions),
 	},
 	{
 		id: "demo",
 		path: "/demo",
-		component: loadable({
-			loader: () => import('./pages/demo'),
-			loading: require('./components/Spinner').default,
-			delay: 300,
-			timeout: 10000,
-			modules: ['./pages/demo'],
-			webpack: () => [(require as CustomNodeRequire).resolveWeak('./pages/demo')],
-		}),
+		component: loadable(() => import(/* webpackChunkName: "demo" */'./pages/demo'), loadingOptions),
 	},
 ];
 
@@ -34,10 +26,6 @@ export default routingTable;
 /***********
  * Helpers *
  ***********/
-
-interface CustomNodeRequire extends NodeRequire {
-	resolveWeak: (s: string) => any;
-}
 
 export type Route = typeof routingTable[number];
 export const getRouteById = memo((id: Pick<Route, 'id'>['id']) => {

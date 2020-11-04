@@ -2,17 +2,13 @@ const {
 	resolve
 } = require('path');
 const webpack = require('webpack');
-const {
-	CheckerPlugin
-} = require('awesome-typescript-loader');
 const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const AsyncChunkNamesPlugin = require('webpack-async-chunk-names-plugin');
-const {
-	ReactLoadablePlugin
-} = require('react-loadable/webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BrotliCompression = require("brotli-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const { loadableTransformer } = require('loadable-ts-transformer');
 
 module.exports = {
 	mode: 'production',
@@ -37,21 +33,19 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.(j|t)sx?$/,
-			use: [{
-				loader: 'awesome-typescript-loader',
+			use: ['cache-loader', {
+				loader: 'ts-loader',
 				options: {
-					useCahce: true,
-					forceIsolatedModules: true,
-					reportFiles: ["src/**/*.{ts,tsx}"],
-					silent: true,
+					configFile: 'tsconfig.json',
+					transpileOnly: true,
+					logInfoToStdOut: true,
+					getCustomTransformers: () => ({ before: [loadableTransformer] }),
 				},
 			}, ],
 			exclude: /node_modules/,
 		}, ],
 	},
 	plugins: [
-		new webpack.NamedModulesPlugin(),
-		new webpack.HashedModuleIdsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
@@ -60,11 +54,12 @@ module.exports = {
 			},
 			PRODUCTION: JSON.stringify(true),
 		}),
-		new CheckerPlugin(),
 		new ManifestPlugin(),
-		new AsyncChunkNamesPlugin(),
-		new ReactLoadablePlugin({
-			filename: './dist/react-loadable.json',
+		new LoadablePlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: '../../tsconfig.json',
+			},
 		}),
 		new CompressionPlugin({
 			cache: true,
@@ -75,10 +70,11 @@ module.exports = {
 		}),
 	],
 	optimization: {
+		chunkIds: 'deterministic',
+		moduleIds: 'deterministic',
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
-				sourceMap: true,
 				terserOptions: {
 					output: {
 						comments: false,

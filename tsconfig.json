@@ -17,7 +17,8 @@
 			"es2018",
 			"dom"
 		],
-		"baseUrl": "."
+		"baseUrl": ".",
+		"listFiles": true
 	},
 	"exclude": [
 		"node_modules",

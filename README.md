@@ -1,14 +1,14 @@
 # Modern Web Frontend Boilerplate
 
 ## Technologies
-- **Client-side:** TypeScript v3, React v16
-- **Server-side:** TypeScript v3, Node.js v11
+- **Client-side:** TypeScript v4, React v17
+- **Server-side:** TypeScript v4, Node.js v10+
 - **Routing:** Express v4, React-Router v5
 
 ## Limitations and restrictions
 
 **Server-side:**
-- Node.js v.8+
+- Node.js v.10+
 - Npm v.6+
 - TLS/SSL not supported, it should be implemented by platform router or reverse-proxy
 

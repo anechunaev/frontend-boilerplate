@@ -1,25 +1,10 @@
-import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import RoutingTable from '../../routingTable';
+import View, { IOuterProps as IViewProps } from './view';
+import styles from './style';
+import withStyles from 'react-jss';
 
-export interface IProps {
-	routingTable: typeof RoutingTable;
-}
+export type IProps = IViewProps;
 
-export default function Menu(props: IProps) {
-	const { routingTable, ...rest } = props;
-	return (
-		<div {...rest}>
-			{routingTable.map((route, index, src) => (
-				<span key={`item${index}`}>
-					<RouterLink to={route.path}>
-						{route.id}
-					</RouterLink>
-					{index < src.length - 1 && (
-						<span>&emsp;&middot;&emsp;</span>
-					)}
-				</span>
-			))}
-		</div>
-	);
-}
+const Menu = withStyles(styles)(View);
+Menu.displayName = 'Menu';
+
+export default Menu;
